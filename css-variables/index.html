@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CSS Variables with JS</title>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 1rem;
+      --blur: .5rem;
+    }
+    html {
+      font-size:10px;
+    }
+    body {
+      background: #193549;
+      color: white;
+      font-family: 'helverica neue',sans-serif;
+      font-weight: 100;
+      font-size:5rem;
+    }
+    input {
+      width: 10rem;
+    }
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+    .hl {
+      color: var(--base);
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <h2>Update CSS Variables with <span class="hl">JS</span>
+    <div>
+      <label for = "spacing">Spacing:</label>
+      <input id = "spacing" type="range" name="range" min="0" max="25" value="10" data-sizing="px">
+
+      <label for="blur">Blur: </label>
+      <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+      <label for="baseColor">Base Color</label>
+      <input id="baseColor" type="color" name="baseColor" value="#ffc600">
+
+      <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+    </div>
+
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll('.controls input');
+    console.log(inputs);
+
+    function  handleUpdate() {
+      // console.log('change')
+      const suffix = this.dataset.sizing || '';
+      // console.log(`--${this.name}`,this.value);
+
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach( input => input.addEventListener('change',handleUpdate));
+    inputs.forEach( input => input.addEventListener('mousemove',handleUpdate));
+  </script>
+
+</body>
+</html>
